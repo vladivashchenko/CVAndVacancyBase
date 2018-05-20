@@ -1,59 +1,66 @@
-﻿using System;
+﻿using CVAndVacancyBase.DAL.EF;
+using CVAndVacancyBase.DAL.Entities;
+using CVAndVacancyBase.DAL.Interfaces;
+using CVAndVacancyBase.DAL.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CVAndVacancyBase.DLL.Repositories.Abstract;
-using CVAndVacancyBase.DLL.EF;
-using CVAndVacancyBase.DLL.Entities;
-using CVAndVacancyBase.DLL.Repositories;
-using System.Data.Entity;
 
-namespace CVAndVacancyBase.DLL
+namespace CVAndVacancyBase.DAL
 {
-    class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
-        private ModelContext db = new ModelContext();
-        private CV_Repository CvRe;
-        private VacancyRepository VaRe;
-        private EmployeeRepository EmpRe;
-        private EmployerRepository EmrRe;
-        public CV_Repository CVs
+        private ModelContext db;
+        private CVRepository cvRepository;
+        private VacancyRepository vacancyRepository;
+        private EmployeeRepository employeeRepository;
+        private EmployerRepository employerRepository;
+
+        public UnitOfWork(string connectionString)
+        {
+            db = new ModelContext(connectionString);
+        }
+        public IRepository<CV> CVes
         {
             get
             {
-                if (CvRe == null)
-                    CvRe = new CV_Repository(db);
-                return CvRe;
+                if (cvRepository == null)
+                    cvRepository = new CVRepository(db);
+                return cvRepository;
             }
         }
-        public VacancyRepository Vacancies
+
+        public IRepository<Vacancy> Vacancies
         {
             get
             {
-                if (VaRe == null)
-                    VaRe = new VacancyRepository(db);
-                return VaRe;
+                if (vacancyRepository == null)
+                    vacancyRepository = new VacancyRepository(db);
+                return vacancyRepository;
             }
         }
-        public EmployeeRepository Employees
+        public IRepository<Employer> Employers
         {
             get
             {
-                if (EmpRe == null)
-                    EmpRe = new EmployeeRepository(db);
-                return EmpRe;
+                if (employerRepository == null)
+                    employerRepository = new EmployerRepository(db);
+                return employerRepository;
             }
         }
-        public EmployerRepository Employers
+
+        public IRepository<Employee> Employees
         {
             get
             {
-                if (EmrRe == null)
-                    EmrRe = new EmployerRepository(db);
-                return EmrRe;
+                if (employeeRepository == null)
+                    employeeRepository = new EmployeeRepository(db);
+                return employeeRepository;
             }
         }
+
         public void Save()
         {
             db.SaveChanges();
@@ -78,6 +85,5 @@ namespace CVAndVacancyBase.DLL
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
     }
 }

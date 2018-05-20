@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CVAndVacancyBase.DLL.Entities.Abstract;
+using CVAndVacancyBase.DAL.Entities.Abstract;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CVAndVacancyBase.DLL.Entities
+namespace CVAndVacancyBase.DAL.Entities
 {
     public class Vacancy : Entity
     {

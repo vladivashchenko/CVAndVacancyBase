@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CVAndVacancyBase.DLL.Entities.Abstract
+namespace CVAndVacancyBase.DAL.Entities.Abstract
 
 {
     public abstract class Entity

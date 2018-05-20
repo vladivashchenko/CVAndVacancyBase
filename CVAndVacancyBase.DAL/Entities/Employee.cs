@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CVAndVacancyBase.DLL.Entities
+namespace CVAndVacancyBase.DAL.Entities
 {
     public class Employee : User
     {
