@@ -1,11 +1,5 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject;
 using CVAndVacancyBase.BLL.Interfaces;
 using CVAndVacancyBase.BLL.DTO;
 using CVAndVacancyBase.DAL.Interfaces;
@@ -17,26 +11,27 @@ namespace CVAndCVBase.BLL.Services
     public class EmployeeService : IService<EmployeeDTO>
     {
         IUnitOfWork Database { get; set; }
-        MapperConfiguration config = new AutoMapperConfiguration().Configure();
+        MapperConfiguration config;
+        IMapper mapper;
 
         public EmployeeService(IUnitOfWork uow)
         {
             Database = uow;
-
+            config = new AutoMapperConfiguration().Configure();
+            mapper = config.CreateMapper();
         }
         public EmployeeDTO Get(int id)
         {
             var employee = Database.Employees.Get(id);
             if (employee == null)
                 throw new ValidationException("Not found", "");
-            var iMapper = config.CreateMapper();
-            return iMapper.Map<Employee, EmployeeDTO>(employee);
+
+            return mapper.Map<Employee, EmployeeDTO>(employee);
         }
 
         public IEnumerable<EmployeeDTO> GetAll()
         {
-            var iMapper = config.CreateMapper();
-            return iMapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
+            return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
         }
 
         public void Add(EmployeeDTO entity)

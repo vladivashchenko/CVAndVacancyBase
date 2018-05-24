@@ -1,42 +1,37 @@
 ﻿using AutoMapper;
 using CVAndVacancyBase.BLL.Interfaces;
-using CVAndVacancyBase.BLL.DTO;
 using CVAndVacancyBase.BLL.Infrastructure;
 using CVAndVacancyBase.DAL.Entities;
 using CVAndVacancyBase.DAL.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject;
+
 
 namespace CVAndVacancyBase.BLL.Services
 {
     public class VacancyService:IService<VacancyDTO>
     {
         IUnitOfWork Database { get; set; }
-        MapperConfiguration config = new AutoMapperConfiguration().Configure();
+        MapperConfiguration config;
+        IMapper mapper;
 
         public VacancyService(IUnitOfWork uow)
         {
             Database = uow;
-            
+            config = new AutoMapperConfiguration().Configure();
+            mapper = config.CreateMapper();
         }
         public VacancyDTO Get(int id)
         {
             var vacancy = Database.Vacancies.Get(id);
             if (vacancy == null)
                 throw new ValidationException("Not found","");
-            var iMapper = config.CreateMapper();
-            return iMapper.Map<Vacancy,VacancyDTO>(vacancy);
+
+            return mapper.Map<Vacancy,VacancyDTO>(vacancy);
         }
 
         public IEnumerable<VacancyDTO> GetAll()
         {
-            var iMapper = config.CreateMapper();
-            return iMapper.Map<IEnumerable<Vacancy>, List<VacancyDTO>>(Database.Vacancies.GetAll());
+            return mapper.Map<IEnumerable<Vacancy>, List<VacancyDTO>>(Database.Vacancies.GetAll());
         }
 
         public void Add(VacancyDTO entity)
