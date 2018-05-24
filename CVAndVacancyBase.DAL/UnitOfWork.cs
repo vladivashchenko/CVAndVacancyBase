@@ -13,10 +13,10 @@ namespace CVAndVacancyBase.DAL
     public class UnitOfWork : IUnitOfWork
     {
         private ModelContext db;
-        private CVRepository cvRepository;
-        private VacancyRepository vacancyRepository;
-        private EmployeeRepository employeeRepository;
-        private EmployerRepository employerRepository;
+        private IRepository<CV> cvRepository;
+        private IRepository<Vacancy> vacancyRepository;
+        private IRepository<Employee> employeeRepository;
+        private IRepository<Employer> employerRepository;
 
         public UnitOfWork(string connectionString)
         {
