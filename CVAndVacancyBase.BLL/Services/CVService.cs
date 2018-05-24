@@ -6,7 +6,7 @@ using CVAndVacancyBase.DAL.Interfaces;
 using CVAndVacancyBase.BLL.Infrastructure;
 using CVAndVacancyBase.DAL.Entities;
 
-namespace CVAndCVBase.BLL.Services
+namespace CVAndVacancyBase.BLL.Services
 {
     public class CVService : IService<CVDTO>
     {
@@ -60,9 +60,20 @@ namespace CVAndCVBase.BLL.Services
             Database.Save();
         }
 
-        public void Update(int id)
+        public void Update(CVDTO entity)
         {
-            Database.CVes.Update(id);
+            CV cv = Database.CVes.Get(entity.Id);
+            Employee employee = Database.Employees.Get(entity.EmployeeId.Value);
+            cv.Goal = entity.Goal;
+            cv.Language = entity.Language;
+            cv.Position = entity.Position;
+            cv.Skills = entity.Skills;
+            cv.WorkingExperience = entity.WorkingExperience;
+            cv.Education = entity.Education;
+            cv.EmployeeId = entity.EmployeeId;
+            cv.Employee = employee;
+
+            Database.CVes.Update(cv);
             Database.Save();
         }
     }

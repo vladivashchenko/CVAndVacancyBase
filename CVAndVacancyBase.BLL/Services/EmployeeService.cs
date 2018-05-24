@@ -6,7 +6,7 @@ using CVAndVacancyBase.DAL.Interfaces;
 using CVAndVacancyBase.BLL.Infrastructure;
 using CVAndVacancyBase.DAL.Entities;
 
-namespace CVAndCVBase.BLL.Services
+namespace CVAndVacancyBase.BLL.Services
 {
     public class EmployeeService : IService<EmployeeDTO>
     {
@@ -57,9 +57,17 @@ namespace CVAndCVBase.BLL.Services
             Database.Save();
         }
 
-        public void Update(int id)
+        public void Update(EmployeeDTO entity)
         {
-            Database.Employees.Update(id);
+            Employee employee = Database.Employees.Get(entity.Id);
+            employee.Age = entity.Age;
+            employee.Email = entity.Email;
+            employee.Admin = entity.Admin;
+            employee.Name = entity.Name;
+            employee.Password = entity.Password;
+            employee.Telephone = entity.Telephone;
+            
+            Database.Employees.Update(employee);
             Database.Save();
         }
     }

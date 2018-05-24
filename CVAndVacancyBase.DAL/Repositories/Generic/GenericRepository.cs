@@ -49,9 +49,8 @@ namespace CVAndVacancyBase.DAL.Repositories.Generic
             Dbset.Remove(entity);
         }
 
-        public virtual void Update(int id)
+        public virtual void Update(TEntity entity)
         {
-            TEntity entity = Dbset.Find(id);
             Dbcontext.Entry(entity).State = EntityState.Modified;
         }
 

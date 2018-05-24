@@ -56,9 +56,17 @@ namespace CVAndVacancyBase.BLL.Services
             Database.Save();
         }
 
-        public void Update(int id)
+        public void Update(VacancyDTO entity)
         {
-            Database.Vacancies.Update(id);
+            Vacancy vacancy = Database.Vacancies.Get(entity.Id);
+            Employer employer = Database.Employers.Get(entity.EmployerId.Value);
+
+            vacancy.Name = entity.Name;
+            vacancy.EmployerId = entity.EmployerId;
+            vacancy.Employer = employer;
+            vacancy.Salary = entity.Salary;
+
+            Database.Vacancies.Update(vacancy);
             Database.Save();
         }
     }

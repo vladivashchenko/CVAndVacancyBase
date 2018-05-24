@@ -13,7 +13,7 @@ namespace CVAndVacancyBase.BLL.Interfaces
         IEnumerable<T> GetAll();
         T Get(int id);
         void Add(T item);
-        void Update(int id);
+        void Update(T item);
         void Delete(int id);
     }
 }
