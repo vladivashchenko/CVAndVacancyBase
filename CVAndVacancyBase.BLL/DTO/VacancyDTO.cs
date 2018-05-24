@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CVAndVacancyBase.DAL.Entities
+namespace CVAndVacancyBase.BLL.DTO
 {
     public class VacancyDTO : Entity
     {

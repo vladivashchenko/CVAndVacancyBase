@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using CVAndVacancyBase.BLL.Interfaces;
 using CVAndVacancyBase.BLL.Infrastructure;
-using CVAndVacancyBase.DAL.Entities;
 using CVAndVacancyBase.DAL.Interfaces;
 using System.Collections.Generic;
-
+using CVAndVacancyBase.BLL.DTO;
+using CVAndVacancyBase.DAL.Entities;
 
 namespace CVAndVacancyBase.BLL.Services
 {
