@@ -24,7 +24,7 @@ namespace CVAndVacancyBase.BLL.Services
         {
             var vacancy = Database.Vacancies.Get(id);
             if (vacancy == null)
-                throw new ValidationException("Not found","");
+                throw new ValidationException("Vacancy not found","");
 
             return mapper.Map<Vacancy,VacancyDTO>(vacancy);
         }
@@ -36,7 +36,11 @@ namespace CVAndVacancyBase.BLL.Services
 
         public void Add(VacancyDTO entity)
         {
-            Employer employer = Database.Employers.Get(entity.EmployerId.Value);
+            if (entity == null)
+                throw new ValidationException("Vacancy can't be null", "");
+            User employer = Database.Users.Get(entity.EmployerId.Value);
+            if (employer == null)
+                throw new ValidationException("Employer not found", "");
             Vacancy vacancy = new Vacancy
             {
                 Id = entity.Id,
@@ -58,8 +62,14 @@ namespace CVAndVacancyBase.BLL.Services
 
         public void Update(VacancyDTO entity)
         {
+            if (entity == null)
+                throw new ValidationException("Vacancy can't be null", "");
             Vacancy vacancy = Database.Vacancies.Get(entity.Id);
-            Employer employer = Database.Employers.Get(entity.EmployerId.Value);
+            if (vacancy == null)
+                throw new ValidationException("Vacancy not found", "");
+            User employer = Database.Users.Get(entity.EmployerId.Value);
+            if (employer == null)
+                throw new ValidationException("Employer not found", "");
 
             vacancy.Name = entity.Name;
             vacancy.EmployerId = entity.EmployerId;
