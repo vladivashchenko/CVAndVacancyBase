@@ -49,9 +49,7 @@
   <ItemGroup>
     <Compile Include="DTO\Abstract\Entity.cs" />
     <Compile Include="DTO\CVDTO.cs" />
-    <Compile Include="DTO\EmployeeDTO.cs" />
-    <Compile Include="DTO\EmployerDTO.cs" />
-    <Compile Include="DTO\User.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\VacancyDTO.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\MappingProfile.cs" />
@@ -60,8 +58,7 @@
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CVService.cs" />
-    <Compile Include="Services\EmployeeService.cs" />
-    <Compile Include="Services\EmployerService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\VacancyService.cs" />
   </ItemGroup>
   <ItemGroup>

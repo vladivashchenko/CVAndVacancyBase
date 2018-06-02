@@ -24,7 +24,7 @@ namespace CVAndVacancyBase.BLL.Services
         {
             var cv = Database.CVes.Get(id);
             if (cv == null)
-                throw new ValidationException("Not found", "");
+                throw new ValidationException("CV not found", "");
             
             return mapper.Map<CV, CVDTO>(cv);
         }
@@ -36,7 +36,9 @@ namespace CVAndVacancyBase.BLL.Services
 
         public void Add(CVDTO entity)
         {
-            Employee employee = Database.Employees.Get(entity.EmployeeId.Value);
+            User employee = Database.Users.Get(entity.EmployeeId.Value);
+            if (employee == null)
+                throw new ValidationException("Employee not found", "");
             CV cv = new CV
             {
                 Id = entity.Id,
@@ -63,7 +65,12 @@ namespace CVAndVacancyBase.BLL.Services
         public void Update(CVDTO entity)
         {
             CV cv = Database.CVes.Get(entity.Id);
-            Employee employee = Database.Employees.Get(entity.EmployeeId.Value);
+            if (cv == null)
+                throw new ValidationException("CV not found", "");
+            User employee = Database.Users.Get(entity.EmployeeId.Value);
+            if (employee == null)
+                throw new ValidationException("Employee not found", "");
+
             cv.Goal = entity.Goal;
             cv.Language = entity.Language;
             cv.Position = entity.Position;

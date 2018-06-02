@@ -14,8 +14,7 @@ namespace CVAndVacancyBase.BLL.Infrastructure
         public MappingProfile(){
             CreateMap<CV, CVDTO>().ReverseMap();
             CreateMap<Vacancy, VacancyDTO>().ReverseMap();
-            CreateMap<Employee, EmployeeDTO>().ReverseMap();
-            CreateMap<Employer, EmployerDTO>().ReverseMap(); 
+            CreateMap<User, UserDTO>().ReverseMap();
         }
     }
 }
