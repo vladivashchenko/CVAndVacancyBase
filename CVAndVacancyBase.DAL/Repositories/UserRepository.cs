@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace CVAndVacancyBase.DAL.Repositories
 {
-    public class EmployeeRepository : GenericRepository<Employee>
+    public class UserRepository : GenericRepository<User>
     {
-        public EmployeeRepository(ModelContext context) : base(context)
+        public UserRepository(ModelContext context) : base(context)
         {
         }
     }

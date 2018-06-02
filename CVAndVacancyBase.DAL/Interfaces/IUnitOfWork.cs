@@ -11,8 +11,7 @@ namespace CVAndVacancyBase.DAL.Interfaces
     {
         IRepository<CV> CVes { get; }
         IRepository<Vacancy> Vacancies { get; }
-        IRepository<Employee> Employees { get; }
-        IRepository<Employer> Employers { get; }
+        IRepository<User> Users { get; }
 
         void Save();
     }

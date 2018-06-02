@@ -15,8 +15,8 @@ namespace CVAndVacancyBase.DAL
         private ModelContext db;
         private IRepository<CV> cvRepository;
         private IRepository<Vacancy> vacancyRepository;
-        private IRepository<Employee> employeeRepository;
-        private IRepository<Employer> employerRepository;
+        private IRepository<User> userRepository;
+
 
         public UnitOfWork(string connectionString)
         {
@@ -41,23 +41,13 @@ namespace CVAndVacancyBase.DAL
                 return vacancyRepository;
             }
         }
-        public IRepository<Employer> Employers
+        public IRepository<User> Users
         {
             get
             {
-                if (employerRepository == null)
-                    employerRepository = new EmployerRepository(db);
-                return employerRepository;
-            }
-        }
-
-        public IRepository<Employee> Employees
-        {
-            get
-            {
-                if (employeeRepository == null)
-                    employeeRepository = new EmployeeRepository(db);
-                return employeeRepository;
+                if (userRepository == null)
+                    userRepository = new UserRepository(db);
+                return userRepository;
             }
         }
 
