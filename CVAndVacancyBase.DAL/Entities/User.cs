@@ -13,8 +13,7 @@ namespace CVAndVacancyBase.DAL.Entities
         private string email;
         private string password;
         private string name;
-        private int age;
-        private string location;
+        private string address;
         private string telephone;  
         private Roles role;
         private ICollection<CV> cves;
@@ -26,8 +25,7 @@ namespace CVAndVacancyBase.DAL.Entities
         public string Telephone { get => telephone; set => telephone = value; }
         public Roles Role{ get => role; set => role = value; }
         public virtual ICollection<CV> CVes { get => cves; set => cves = value; }
-        public int Age { get => age; set => age = value; }
-        public string Location { get => location; set => location = value; }
+        public string Address { get => address; set => address = value; }
         public virtual ICollection<Vacancy> Vacancies { get => vacancies; set => vacancies = value; }
     }
 }
