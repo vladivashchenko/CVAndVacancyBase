@@ -8,7 +8,7 @@ using CVAndVacancyBase.DAL.Entities;
 
 namespace CVAndVacancyBase.BLL.Services
 {
-    public class UserService : IService<UserDTO>
+    public class UserService : IUserService
     {
         IUnitOfWork Database { get; set; }
         MapperConfiguration config;
@@ -76,6 +76,13 @@ namespace CVAndVacancyBase.BLL.Services
             
             Database.Users.Update(user);
             Database.Save();
+        }
+
+        public UserDTO ValidateUser(string email, string password)
+        {
+            var users = mapper.Map<IEnumerable<User>, List<UserDTO>>(Database.Users.GetAll());
+            var user = users.Find(us => us.Email == email && us.Password == password);
+            return user;
         }
     }
 }
