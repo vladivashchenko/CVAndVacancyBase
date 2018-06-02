@@ -10,8 +10,7 @@ namespace CVAndVacancyBase.DAL.EF
 {
     public class ModelContext : DbContext
     {
-        public virtual DbSet<Employer> Employers { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vacancy> Vacancies { get; set; }
         public virtual DbSet<CV> CVes { get; set; }
 

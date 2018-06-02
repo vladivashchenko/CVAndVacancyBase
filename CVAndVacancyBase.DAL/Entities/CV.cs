@@ -16,7 +16,7 @@ namespace CVAndVacancyBase.DAL.Entities
         private string workingExperience;
         private string goal;
         private string language;
-        private Employee employee;
+        private User employee;
 
 
         [ForeignKey("Employee")]
@@ -28,6 +28,6 @@ namespace CVAndVacancyBase.DAL.Entities
         public string WorkingExperience { get => workingExperience; set => workingExperience = value; }
         public string Goal { get => goal; set => goal = value; }
         public string Language { get => language; set => language = value; }
-        public Employee Employee { get => employee; set => employee = value; }
+        public User Employee { get => employee; set => employee = value; }
     }
 }
