@@ -36,6 +36,8 @@ namespace CVAndVacancyBase.BLL.Services
 
         public void Add(CVDTO entity)
         {
+            if (entity == null)
+                throw new ValidationException("CV can't be null", "");
             User employee = Database.Users.Get(entity.EmployeeId.Value);
             if (employee == null)
                 throw new ValidationException("Employee not found", "");
@@ -64,6 +66,8 @@ namespace CVAndVacancyBase.BLL.Services
 
         public void Update(CVDTO entity)
         {
+            if (entity == null)
+                throw new ValidationException("CV can't be null", "");
             CV cv = Database.CVes.Get(entity.Id);
             if (cv == null)
                 throw new ValidationException("CV not found", "");
