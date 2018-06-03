@@ -14,10 +14,7 @@ namespace CVAndVacancyBase.Util
         public MappingProfile(){
             CreateMap<CVDTO, CVModelView>().ReverseMap();
             CreateMap<VacancyDTO, VacancyModelView>().ReverseMap();
-            CreateMap<EmployeeDTO, EmployeeModelView>().ReverseMap();
-            CreateMap<EmployerDTO, EmployerModelView>().ReverseMap(); 
-
-
+            CreateMap<UserDTO, UserModelView>().ReverseMap();
         }
     }
 }

@@ -5,8 +5,12 @@ namespace DesignStudio.WebAPI.App_Start
 {
     using System;
     using System.Web;
+    using System.Web.Http;
+    using CVAndVacancyBase.App_Start;
+    using CVAndVacancyBase.BLL.DTO;
     using CVAndVacancyBase.BLL.Infrastructure;
-    using CVAndVacancyBase.Util;
+    using CVAndVacancyBase.BLL.Interfaces;
+    using CVAndVacancyBase.BLL.Services;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Modules;
@@ -39,16 +43,19 @@ namespace DesignStudio.WebAPI.App_Start
         /// Creates the kernel that will manage your application.
         /// </summary>
         /// <returns>The created kernel.</returns>
-        private static IKernel CreateKernel()
+        public static IKernel CreateKernel()
         {
 
-            var modules = new INinjectModule[] { new ServiceModule("DesignStudio") };
+            var modules = new INinjectModule[] { new ServiceModule("CVandVacancyBase") };
             var kernel = new StandardKernel(modules);
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
                 RegisterServices(kernel);
+
+                GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
+
                 return kernel;
             }
             catch
@@ -58,13 +65,16 @@ namespace DesignStudio.WebAPI.App_Start
             }
         }
 
+
         /// <summary>
         /// Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            System.Web.Mvc.DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            kernel.Bind<IService<VacancyDTO>>().To<VacancyService>();
+            kernel.Bind<IService<CVDTO>>().To<CVService>();
+            kernel.Bind<IUserService>().To<UserService>();
         }
     }
 }

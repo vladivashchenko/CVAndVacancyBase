@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CVAndVacancyBase.BLL.Interfaces
 {
-    interface IUserService : IService<UserDTO>
+    public interface IUserService : IService<UserDTO>
     {
         UserDTO ValidateUser(string email, string password);
     }

@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace CVAndVacancyBase.Models
 {
-    public class User: Entity
+    public class UserModelView : Entity
     {
+        public enum Roles { Admin, Employer, Employee };
         private string email;
         private string password;
         private string name;
-        private bool admin;
+        private string address;
+        private string telephone;
+        private Roles role;
 
         public string Email
         {
@@ -38,12 +41,28 @@ namespace CVAndVacancyBase.Models
                 name = value;
             }
         }
-        public bool Admin
+        public string Telephone
         {
-            get { return admin; }
+            get { return telephone; }
             set
             {
-                admin = value;
+                telephone = value;
+            }
+        }
+        public Roles Role
+        {
+            get { return role; }
+            set
+            {
+                role = value;
+            }
+        }
+        public string Address
+        {
+            get { return address; }
+            set
+            {
+                address = value;
             }
         }
     }

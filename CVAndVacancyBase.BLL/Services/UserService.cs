@@ -5,6 +5,7 @@ using CVAndVacancyBase.BLL.DTO;
 using CVAndVacancyBase.DAL.Interfaces;
 using CVAndVacancyBase.BLL.Infrastructure;
 using CVAndVacancyBase.DAL.Entities;
+using System.Linq;
 
 namespace CVAndVacancyBase.BLL.Services
 {
@@ -80,8 +81,9 @@ namespace CVAndVacancyBase.BLL.Services
 
         public UserDTO ValidateUser(string email, string password)
         {
-            var users = mapper.Map<IEnumerable<User>, List<UserDTO>>(Database.Users.GetAll());
-            var user = users.Find(us => us.Email == email && us.Password == password);
+            List<UserDTO> users= mapper.Map<IEnumerable<User>,List<UserDTO>>(Database.Users.GetBy(us => us.Email == email && us.Password == password));
+            var user = users.First();
+
             return user;
         }
     }

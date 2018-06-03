@@ -14,6 +14,8 @@ namespace CVAndVacancyBase.Controllers
         MapperConfiguration config;
         IMapper mapper;
 
+        public CVController() { }
+
         public CVController(IService<CVDTO> service)
         {
             this.service = service;
