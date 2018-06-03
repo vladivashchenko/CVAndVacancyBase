@@ -6,14 +6,14 @@ using System.Text;
 using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CVAndVacancyBase;
-using CVAndVacancyBase.Controllers;
+
 
 namespace CVAndVacancyBase.Tests.Controllers
 {
     [TestClass]
     public class ValuesControllerTest
     {
-        [TestMethod]
+       /* [TestMethod]
         public void Get()
         {
             // Упорядочение
@@ -76,6 +76,6 @@ namespace CVAndVacancyBase.Tests.Controllers
             controller.Delete(5);
 
             // Утверждение
-        }
+        }*/
     }
 }
