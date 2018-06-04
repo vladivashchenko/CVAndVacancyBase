@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace CVAndVacancyBase.Controllers
 {
+    [Authorize]
     public class AccountsController : ApiController
     {
         IUserService service;
@@ -40,13 +41,18 @@ namespace CVAndVacancyBase.Controllers
             return user;
         }
 
-        [Route("work-app/{customerId}/orders/{orderId}")]
+
+        [AllowAnonymous]
+        [Route("work-app/accounts/RegisterEmployer")]
         public void PostEmployer([FromBody]UserModelView value)
         {
             var user = mapper.Map<UserModelView, UserDTO>(value);
             user.Role = UserDTO.Roles.Employer;
             service.Add(user);
         }
+        [AllowAnonymous]
+        [Route("work-app/accounts/RegisterEmployee")]
+
         public void PostEmployee([FromBody]UserModelView value)
         {
             var user = mapper.Map<UserModelView, UserDTO>(value);

@@ -1,0 +1,212 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Design studio</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../Scripts/jquery-3.3.1.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/custom/custom.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+    <script>
+        $(document).ready(function () {
+            GetAllCVs();
+            $("#editCV").click(function (event) {
+                event.preventDefault();
+                EditCV();
+            });
+
+            $("#addCV").click(function (event) {
+                event.preventDefault();
+                AddCV();
+            });
+
+        });
+
+        function GetAllCVs() {
+            $("#createBlock").css('display', 'block');
+            $("#editBlock").css('display', 'none');
+            $.ajax({
+                url: '/work-app/cvs',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    WriteResponse(data);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        // Добавление новой книги
+        function AddCV() {
+            // получаем значения для добавляемой книги
+            var cv = {
+                Position: $('#addPosition').val(),
+                EmloyerId: $('#addEmloyerId').val(),
+                Skills: $('#addSkills').val(),
+                Education: $('#addEducation').val(),
+                WorkingExperience: $('#addWorkingExperience').val(),
+                Goal: $('#addGoal').val(),
+                Language: $('#addLanguage').val()
+            };
+
+            $.ajax({
+                url: '/work-app/cvs/',
+                type: 'POST',
+                data: JSON.stringify(cv),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetAllCVs();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        // Удаление книги
+        function DeleteCV(id) {
+
+            $.ajax({
+                url: '/work-app/cvs/' + id,
+                type: 'DELETE',
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetAllCVs();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        // редактирование книги
+        function EditCV() {
+            var id = $('#editId').val();
+            // получаем новые значения для редактируемой книги
+            var cv = {
+                Position: $('#editPosition').val(),
+                EmloyerId: $('#editEmloyerId').val(),
+                Skills: $('#editSkills').val(),
+                Education: $('#editEducation').val(),
+                WorkingExperience: $('#editWorkingExperience').val(),
+                Goal: $('#editGoal').val(),
+                Language: $('#editLanguage').val()
+            };
+            $.ajax({
+                url: '/work-app/cvs/' + id,
+                type: 'PUT',
+                data: JSON.stringify(cv),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetAllCVs();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        // вывод полученных данных на экран
+        function WriteResponse(cvs) {
+            var strResult = "<table><th>ID</th><th>Name</th>";
+            $.each(cvs, function (index, cv) {
+                strResult += "<tr><td>" + cv.Id + "</td><td> " + cv.Position + "</td>" +
+                    "<td><a id='editItem' data-item='" + cv.Id + "' onclick='EditItem(this);' >Редагувати</a></td>" +
+                    "<td><a id='delItem' data-item='" + cv.Id + "' onclick='DeleteItem(this);' >Видалити</a></td>"
+                +"</tr>";
+            });
+            strResult += "</table>";
+            $("#tableBlock").html(strResult);
+
+        }
+        // обработчик удаления
+        function DeleteItem(el) {
+            // получаем id удаляемого объекта
+            var id = $(el).attr('data-item');
+            DeleteCV(id);
+        }
+        // обработчик редактирования
+        function EditItem(el) {
+            // получаем id редактируемого объекта
+            var id = $(el).attr('data-item');
+            GetCV(id);
+        }
+        // вывод данных редактируемой книги в поля для редактирования
+        function ShowCV(cv) {
+            if (cv !== null) {
+                $("#createBlock").css('display', 'none');
+                $("#editBlock").css('display', 'block');
+                $("#editId").val(cv.Id);
+                $("#editName").val(cv.Name);
+                $("#editAuthor").val(cv.Author);
+                $("#editYear").val(cv.Year);
+            }
+            else {
+                alert("Not found");
+            }
+        }
+        function GetCV(id) {
+            $.ajax({
+                url: '/work-app/cvs/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    ShowCV(data);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <a class="navbar-brand" href="/work-app/index.html">Design studio</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="/work-app/cvs.html">CVs <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/work-app/designers.html">Designers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/work-app/portfolios.html">Portfolios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/work-app/services.html">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/work-app/orders.html">Orders</a>
+            </li>
+        </ul>
+    </nav>
+    <div id="tableBlock"></div>
+    <div id="editBlock">
+        <p><b>Edit</b></p>
+        <table>
+            <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+            <tr><td><label>Position: </label></td><td><input type="text" id="editPosition" /></td></tr>
+            <tr><td><label>Skills: </label></td><td><input type="text" id="editSkills" /></td></tr>
+            <tr><td><label>Education: </label></td><td><input type="text" id="editEducation" /></td></tr>
+            <tr><td><label>WorkingExperience: </label></td><td><input type="text" id="editWorkingExperience" /></td></tr>
+            <tr><td><label>Goal: </label></td><td><input type="text" id="editGoal" /></td></tr>
+            <tr><td><label>Language: </label></td><td><input type="text" id="editLanguage" /></td></tr>
+
+        </table>
+        <button id="editCV">Save</button>
+    </div>
+    <div id="createBlock">
+        <p><b>Add</b></p>
+        <table>
+            <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+            <tr><td><label>Position: </label></td><td><input type="text" id="editPosition" /></td></tr>
+            <tr><td><label>Skills: </label></td><td><input type="text" id="editSkills" /></td></tr>
+            <tr><td><label>Education: </label></td><td><input type="text" id="editEducation" /></td></tr>
+            <tr><td><label>WorkingExperience: </label></td><td><input type="text" id="editWorkingExperience" /></td></tr>
+            <tr><td><label>Goal: </label></td><td><input type="text" id="editGoal" /></td></tr>
+            <tr><td><label>Language: </label></td><td><input type="text" id="editLanguage" /></td></tr>
+            <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+
+        </table>
+        <button id="addCV">Save</button>
+    </div>
+</body>
+</html>

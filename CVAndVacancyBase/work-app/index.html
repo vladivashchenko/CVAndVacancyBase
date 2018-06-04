@@ -1,0 +1,44 @@
+﻿<html>
+<head>
+    <title></title>
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="js/login.js"></script>
+
+    <link rel="stylesheet" href="../Content/bootstrap.min.css" />
+
+    <script>
+        function goToURL(val) {
+            $("#content").load(val);
+        }
+        $(function () {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">Work App</a>
+
+        <ul class="nav navbar-nav ml-auto">
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+            <li class="nav-item">
+                <a class="nav-link" id="loginLink" href="#" ONCLICK="javascript:goToURL('login.html')">Log in</a>
+            </li>
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Sign up
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" ONCLICK="javascript:goToURL('register-emloyer.html')" id="register-employer">Employee Sign up </a>
+                <a class="dropdown-item" ONCLICK="javascript:goToURL('register-emloyee.html')" id="register-employee" >Employee Sign up </a>
+            </div>
+            </li>
+        </ul>
+    </nav>     <div id="content"></div>
+    <div id="footer"></div>
+</body>
+</html>

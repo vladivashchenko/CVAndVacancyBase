@@ -2,12 +2,10 @@
 using CVAndVacancyBase.BLL.DTO;
 using CVAndVacancyBase.BLL.Interfaces;
 using CVAndVacancyBase.Models;
-using System;
+using CVAndVacancyBase.Util;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+
 
 namespace CVAndVacancyBase.Controllers
 {
@@ -17,11 +15,13 @@ namespace CVAndVacancyBase.Controllers
         MapperConfiguration config;
         IMapper mapper;
 
-        public VacanciesController(IService<VacancyDTO> service, MapperConfiguration config, IMapper mapper)
+        public VacanciesController() { }
+
+        public VacanciesController(IService<VacancyDTO> service)
         {
             this.service = service;
-            this.config = config;
-            this.mapper = mapper;
+            config = new AutoMapperConfiguration().Configure();
+            mapper = config.CreateMapper();
         }
 
         // GET work-app/vacancies
@@ -39,6 +39,8 @@ namespace CVAndVacancyBase.Controllers
         // POST work-app/vacancies
         public void Post([FromBody]VacancyModelView value)
         {
+            var vacancy = mapper.Map<VacancyModelView, VacancyDTO>(value);
+            service.Add(vacancy);
         }
 
         // PUT work-app/vacancies/5
