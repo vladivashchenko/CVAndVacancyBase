@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CVAndVacancyBase.App_Start;
+using DesignStudio.WebAPI.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -16,7 +18,7 @@ namespace CVAndVacancyBase
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "work-app/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

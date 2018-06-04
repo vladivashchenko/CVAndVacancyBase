@@ -8,32 +8,34 @@ using System.Web.Http;
 
 namespace CVAndVacancyBase.Controllers
 {
-    public class CVController : ApiController
+    public class CVsController : ApiController
     {
         IService<CVDTO> service;
         MapperConfiguration config;
         IMapper mapper;
 
-        public CVController(IService<CVDTO> service)
+        public CVsController() { }
+
+        public CVsController(IService<CVDTO> service)
         {
             this.service = service;
             config = new AutoMapperConfiguration().Configure();
             mapper = config.CreateMapper();
         }
 
-        // GET api/values
+        // GET work-app/cvs
         public IEnumerable<CVModelView> Get()
         {
             return mapper.Map<IEnumerable<CVDTO>, List<CVModelView>>(service.GetAll());
         }
 
-        // GET api/values/5
+        // GET work-app/cvs/5
         public CVModelView Get(int id)
         {
             return mapper.Map<CVDTO, CVModelView>(service.Get(id));
         }
 
-        // POST api/values
+        // POST work-app/cvs
         [HttpPost]
         public void Post([FromBody]CVModelView value)
         {
@@ -41,7 +43,7 @@ namespace CVAndVacancyBase.Controllers
             service.Add(cv);
         }
 
-        // PUT api/values/5
+        // PUT work-app/cvs/5
         [HttpPut]
         public void Put(int id, [FromBody]CVModelView value)
         {
@@ -49,7 +51,7 @@ namespace CVAndVacancyBase.Controllers
             service.Update(cv);
         }
 
-        // DELETE api/values/5
+        // DELETE work-app/cvs/5
         public void Delete(int id)
         {
             service.Delete(id);
