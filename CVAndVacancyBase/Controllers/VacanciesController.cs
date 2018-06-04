@@ -11,44 +11,44 @@ using System.Web.Http;
 
 namespace CVAndVacancyBase.Controllers
 {
-    public class VacancyController : ApiController
+    public class VacanciesController : ApiController
     {
         IService<VacancyDTO> service;
         MapperConfiguration config;
         IMapper mapper;
 
-        public VacancyController(IService<VacancyDTO> service, MapperConfiguration config, IMapper mapper)
+        public VacanciesController(IService<VacancyDTO> service, MapperConfiguration config, IMapper mapper)
         {
             this.service = service;
             this.config = config;
             this.mapper = mapper;
         }
 
-        // GET api/values
+        // GET work-app/vacancies
         public IEnumerable<VacancyModelView> Get()
         {
             return mapper.Map<IEnumerable<VacancyDTO>, List<VacancyModelView>>(service.GetAll());
         }
 
-        // GET api/values/5
+        // GET work-app/vacancies/5
         public VacancyModelView Get(int id)
         {
             return mapper.Map<VacancyDTO, VacancyModelView>(service.Get(id));
         }
 
-        // POST api/values
+        // POST work-app/vacancies
         public void Post([FromBody]VacancyModelView value)
         {
         }
 
-        // PUT api/values/5
+        // PUT work-app/vacancies/5
         public void Put(int id, [FromBody]VacancyModelView value)
         {
             var vacancy = mapper.Map<VacancyModelView, VacancyDTO>(value);
             service.Update(vacancy);
         }
 
-        // DELETE api/values/5
+        // DELETE work-app/vacancies/5
         public void Delete(int id)
         {
             service.Delete(id);

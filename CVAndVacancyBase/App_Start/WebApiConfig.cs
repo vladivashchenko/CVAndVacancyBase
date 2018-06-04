@@ -18,7 +18,7 @@ namespace CVAndVacancyBase
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "work-app/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }
